@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function addProduct(Request $request)
     {
-        dd($request['images']);
+        // dd($request['images']);
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:855',
@@ -22,7 +22,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->save();
 
-        foreach ($request->file('images') as $imagefile) {
+        foreach ($request->file('images') as $imagefile) { //image come from frontend was array like images[]
             $image = new Image;
             $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
             $image->url = $path;
